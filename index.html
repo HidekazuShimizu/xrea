@@ -3,11 +3,52 @@
 <head>
 	<meta charset="UTF-8">
 	<title>完美世界～ぱたぱたままの小屋～`</title>
+	<link rel="stylesheet" href="slick/slick.css">
+	<link rel="stylesheet" href="slick/slick-theme.css">
+	<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-	<h1>ぱたぱたままの小屋</h1>
-	<img src="./img/title.png" alt="ぱたぱたままの小屋" width="300" height="200">
-	<p><a href="soukokue.php">倉庫クエ（敵一覧）</a></p>
-	<p><a href="ishikue.php">石クエ</a></p>
-	<p><a href="seirenseki.php">精錬石シミュレーター</a></p>
+	<div class="header">
+		<h1>完美世界～ぱたぱたままの小屋～</h1>
+	</div>
+	<div class="slideshow">
+		<div><img src="img/01.jpg" alt=""></div>
+		<div><img src="img/02.jpg" alt=""></div>
+		<div><img src="img/03.jpg" alt=""></div>
+		<div><img src="img/04.jpg" alt=""></div>
+		<div><img src="img/05.jpg" alt=""></div>
+	</div>
+	<div class="main">
+		<p>こんにちは。完美世界というMMORPGゲームのアルデバラン鯖で大活躍中のぱたぱたままと申します。</p>
+		<p>ちょっとPHPとJavaScript、MySQLのお勉強がしたくて、当サイトを開く運びとなりました。</p>
+		<p>皆さんよろしくね！</p>
+		<h2><a href="souko_quest.php?step=1">倉庫クエ１回目（敵一覧）</a></h2>
+		<h2><a href="souko_quest.php?step=2">倉庫クエ２回目（敵一覧）</a></h2>
+		<p>通称倉庫クエですが、2段階までは6種類の敵のドロップ品を集めることで、</p>
+		<p>無料で倉庫を拡張することができます。</p>
+		<p>現在では、ドロップする敵がなんなのか不明になってしまって、集めるのも諦めてしまう方も。</p>
+		<p>そんな迷える子羊たちのために、情報を集め、開示することと致しました。</p>
+		<h2><a href="seirenseki.php">精錬石シミュレーター</a></h2>
+		<p>LV1～LV12までの精錬石をどのようにして、育成していくのか。結構複雑ですよね。</p>
+		<p>LVいくつの石をいくつ揃えれば、希望のLVの精錬石を作れるのかのシミュレーターを作成しました。</p>
+		<h2>石クエ（早見表）</h2>
+		<p>通称石クエ。レベル30から受けることができ、自身のレベルに応じて1ct石、2ct石、3ct石、4ct石、5ct石が</p>
+		<p>必要になります。その一覧表をまとめてみました。今更感たっぷり？サブ育成時にどうぞ。</p>
+		<p>
+			<table border="1">
+				<tr>
+					<th>1ct</th><th>2ct</th><th>3ct</th><th>4ct</th><th>5ct</th>
+				</tr>
+				<tr>
+					<td>1</td><td>3</td><td>9</td><td>27</td><td>108</td>
+				</tr>
+			</table>
+		</p>
+	</div>
+
+	<!--Scripts-->
+	<script src="js/jquery-3.3.1.min.js"></script>
+	<script src="slick/slick.min.js"></script>
+	<script src="js/app.js"></script>
 </body>
+</html>

@@ -1,0 +1,28 @@
+body {
+    background: #977;
+}
+
+.header h1 {
+    color: #922;
+    width: 100%;
+    text-align: center;
+}
+
+.slideshow {
+    width: 550px;
+    margin: auto;
+}
+
+.slideshow img {
+    width: 100%;
+}
+
+.main p,h2 {
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.main th,td {
+    white-space: nowrap;
+}
