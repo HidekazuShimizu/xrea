@@ -18,11 +18,13 @@ default:
     exit;
 }
 
-$search = $_GET['search'];
-//$search2 = $_POST['search'];
+if (isset($_GET['search'])) {
+    $search = $_GET['search'];
+} else {
+    $search = NULL;
+}
 
 //var_dump($search);
-//var_dump($search2);
 
 // POSTの値をチェックする
 if (isset($_POST['id'])) {

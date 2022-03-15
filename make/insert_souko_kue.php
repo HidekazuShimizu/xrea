@@ -14,12 +14,18 @@ $drop_area1 = htmlspecialchars($_POST['drop_area1'], ENT_QUOTES);
 $drop_area2 = htmlspecialchars($_POST['drop_area2'], ENT_QUOTES);
 if ($_POST['x'] || $_POST['x'] == "0") {
     $x = (int)$_POST['x'];
+} else {
+    $x = NULL;
 }
 if ($_POST['y'] || $_POST['y'] == "0") {
     $y = (int)$_POST['y'];
+} else {
+    $y = NULL;
 }
 if ($_POST['height'] || $_POST['height'] == "0") {
     $height = (int)$_POST['height'];
+} else {
+    $height = NULL;
 }
 ?>
 <!DOCTYPE html>
@@ -67,7 +73,13 @@ try {
 }
 ?>
         <br>
-        <input type="submit" value="戻る">
+        <table>
+            <tr>
+                <th>
+                    <input type="submit" value="戻る">
+                </th>
+            </tr>
+        </table>
     </form>
     </div>
 </body>

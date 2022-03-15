@@ -59,27 +59,27 @@ require_once __DIR__ . '/../get_post_check.php';
     </form>
 <?php
 try {
-    $dbh = new PDO('mysql:host=localhost;dbname=moyasea_kanbi;charset=utf8', $user, $pass);
-    //$dbh = new PDO('mysql:host=mysql8.star.ne.jp;dbname=moyasea_kanbi;charset=utf8', $user, $pass);
     $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     if (empty($search)) {
        $sql = 'SELECT * FROM souko_kue WHERE step = ?';
        $stmt = $dbh->prepare($sql);
        $stmt->bindValue(1, $step, PDO::PARAM_INT);
-    } else {
+    } elseif (isset($search)) {
         for ($i = 0; $i < count($drop_item_name); $i++) {
             if (preg_match('/'.$search.'/', $drop_item_name[$i])) {
                 $cnt = $i;
-                //echo $cnt . '<br>';
+                break;
             }
         }
-        //print_r($drop_item_name);
-
         $sql = 'SELECT * FROM souko_kue WHERE step = ? and (drop_item = ? or drop_enemy like ? or drop_area1 like ? or drop_area2 like ?)';
         $search_like = '%' . $search . '%';
         $stmt = $dbh->prepare($sql);
         $stmt->bindValue(1, $step, PDO::PARAM_INT);
-        $stmt->bindValue(2, $cnt, PDO::PARAM_INT);
+        if (isset($cnt)) {
+            $stmt->bindValue(2, $cnt, PDO::PARAM_INT);
+        } else {
+            $stmt->bindValue(2, NULL, PDO::PARAM_INT);
+        }
         $stmt->bindValue(3, $search_like, PDO::PARAM_STR);
         $stmt->bindValue(4, $search_like, PDO::PARAM_STR);
         $stmt->bindValue(5, $search_like, PDO::PARAM_STR);
@@ -93,9 +93,10 @@ try {
     echo '<tr>' . PHP_EOL;
     echo '<th>' . PHP_EOL;
     echo '<form method="get" action="souko_kue.php?step=' . htmlspecialchars($step, ENT_QUOTES) . '&search=' . htmlspecialchars($search, ENT_QUOTES) . '">' . PHP_EOL;
-    echo '<input type="text" name="search" value="' . htmlspecialchars($search, ENT_QUOTES) . '" size="22" maxlength="10">' . PHP_EOL;
+    echo '<input type="text" class="search_id" name="search" value="' . htmlspecialchars($search, ENT_QUOTES) . '" size="22" maxlength="10">' . PHP_EOL;
     echo '<input type="hidden" name="step" value="' . htmlspecialchars($step, ENT_QUOTES) .'">' . PHP_EOL;
     echo '<input type="submit" value="検索">' . PHP_EOL;
+    echo '<button class="reset"">リセット</button>' . PHP_EOL;
     echo '</form>' . PHP_EOL;
     echo '</th>' . PHP_EOL;
     echo '</tr>' . PHP_EOL;
@@ -127,5 +128,7 @@ try {
 ?>
     </p>
     </div>
+	<script src="../js/jquery-3.3.1.min.js"></script>
+    <script src="../js/souko_quest.js"></script>
 </body>
 </html>

@@ -7,7 +7,6 @@ if ($_POST['id'] == NULL) {
     exit;
 }
 //print_r($_POST);
-
 $drop_item = (int)$_POST['drop_item'];
 $drop_enemy = htmlspecialchars($_POST['drop_enemy'], ENT_QUOTES);
 $drop_area1 = htmlspecialchars($_POST['drop_area1'], ENT_QUOTES);
@@ -15,13 +14,19 @@ $drop_area2 = htmlspecialchars($_POST['drop_area2'], ENT_QUOTES);
 if ($_POST['x'] || $_POST['x'] == "0") {
     $x = (int)htmlspecialchars($_POST['x'], ENT_QUOTES);
 //    var_dump($_POST['x']);
+} else {
+    $x = NULL;
 }
 //var_dump($x);
 if ($_POST['y'] || $_POST['y'] == "0") {
     $y = (int)htmlspecialchars($_POST['y'], ENT_QUOTES);
+} else {
+    $y = NULL;
 }
 if ($_POST['height'] || $_POST['height'] == "0") {
     $height = (int)htmlspecialchars($_POST['height'], ENT_QUOTES);
+} else {
+    $height = NULL;
 }
 ?>
 <!DOCTYPE html>
@@ -53,8 +58,6 @@ echo '</table>' . PHP_EOL;
 echo '<input type="hidden" name="id" value="' . $id . '">';
 
 try {
-    $dbh = new PDO('mysql:host=localhost;dbname=moyasea_kanbi;charset=utf8', $user, $pass);
-    //$dbh = new PDO('mysql:host=mysql8.star.ne.jp;dbname=moyasea_kanbi;charset=utf8', $user, $pass);
     $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $sql = "UPDATE souko_kue set step = ?, drop_item = ?, drop_enemy = ?, drop_area1 = ?, drop_area2 = ?, x = ?, y = ?, height = ? WHERE id = ?";
     $stmt = $dbh->prepare($sql);
@@ -71,12 +74,18 @@ try {
     $dbh = null;
     echo "更新が完了しました。";
 } catch (PDOException $e) {
-    echo 'エラー発生：更新に失敗しました。';
+    echo 'エラー発生：更新に失敗しました。' . var_dump($e);
     exit;
 }
 ?>
         <br>
-        <input type="submit" value="戻る">
+        <table>
+            <tr>
+                <th>
+                    <input type="submit" value="戻る">
+                </th>
+            </tr>
+        </table>
     </form>
     </div>
 </body>

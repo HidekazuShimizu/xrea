@@ -21,12 +21,18 @@ try {
     $drop_area2 = htmlspecialchars($result['drop_area2'], ENT_QUOTES);
     if ($result['x'] || $result['x'] == "0") {
         $x = (int)$result['x'];
+    } else {
+        $x = NULL;
     }
     if ($result['y'] || $result['y'] == "0") {
         $y = (int)$result['y'];
+    } else {
+        $y = NULL;
     }
     if ($result['height'] || $result['height'] == "0") {
         $height = (int)$result['height'];
+    } else {
+        $height = NULL;
     }
     //var_dump($x);
     $dbh = null;
@@ -52,7 +58,7 @@ echo '<tr>' . PHP_EOL;
 echo '<th>ドロップアイテム</th><th>ドロップする敵</th><th>エリア１</th><th>エリア２</th><th>x座標</th><th>y座標</th><th>高度</th><th>更新</th>' . PHP_EOL;
 echo '</tr>' . PHP_EOL;
 echo '<tr>' . PHP_EOL;
-echo '<td>' . $drop_item_name[$drop_item] . '</td>' . PHP_EOL;
+echo '<td><input type="hidden" name="drop_item" value="' . $drop_item . '">' . $drop_item_name[$drop_item] . '</td>' . PHP_EOL;
 echo '<td><input type="text" name="drop_enemy" value="' . $drop_enemy . '" size="20" maxlength="10" required></td>' . PHP_EOL;
 echo '<td><input type="text" name="drop_area1" value="' . $drop_area1 . '" size="10" maxlength="10"></td>' . PHP_EOL;
 echo '<td><input type="text" name="drop_area2" value="' . $drop_area2 . '" size="10" maxlength="10"></td>' . PHP_EOL;
@@ -65,9 +71,15 @@ echo '</table>' . PHP_EOL;
 echo '<input type="hidden" name="id" value="' . $id . '">';
 ?>
     </form>
-    <form method="post" action="souko_kue.php?step=<?= htmlspecialchars($step, ENT_QUOTES) ?>">
-    <input type="submit" value="戻る">
-    </form>
+    <table>
+        <tr>
+            <th>
+                <form method="post" action="souko_kue.php?step=<?= htmlspecialchars($step, ENT_QUOTES) ?>">
+                    <input type="submit" value="戻る">
+                </form>
+            </th>
+        </tr>
+    </table>
     </div>
 </body>
 </html>
