@@ -64,9 +64,9 @@ try {
        $stmt = $dbh->prepare($sql);
        $stmt->bindValue(1, $step, PDO::PARAM_INT);
     } elseif (isset($search)) {
-        for ($i = 0; $i < count($drop_item_name); $i++) {
-            if (preg_match('/'.$search.'/', $drop_item_name[$i])) {
-                $cnt = $i;
+        foreach ($drop_item_name as $key => $value) {
+            if (preg_match('/'.$search.'/', $value[$key])) {
+                $cnt = $key;
                 break;
             }
         }
