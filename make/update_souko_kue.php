@@ -58,7 +58,18 @@ echo '<tr>' . PHP_EOL;
 echo '<th>ドロップアイテム</th><th>ドロップする敵</th><th>エリア１</th><th>エリア２</th><th>x座標</th><th>y座標</th><th>高度</th><th>更新</th>' . PHP_EOL;
 echo '</tr>' . PHP_EOL;
 echo '<tr>' . PHP_EOL;
-echo '<td><input type="hidden" name="drop_item" value="' . $drop_item . '">' . $drop_item_name[$drop_item] . '</td>' . PHP_EOL;
+echo '<td>' . PHP_EOL;
+echo '<select name="drop_item">' . PHP_EOL;
+echo '<option value="NULL">選択してください</option>' . PHP_EOL;
+foreach ($drop_item_name as $key => $value) {
+    echo '<option value="' . $key . '"';
+    if ($key == $drop_item) {
+        echo ' selected';
+    }
+    echo '>' . $value .'</option>' . PHP_EOL;
+}
+echo '</select>' . PHP_EOL;
+echo '</td>' . PHP_EOL;
 echo '<td><input type="text" name="drop_enemy" value="' . $drop_enemy . '" size="20" maxlength="10" required></td>' . PHP_EOL;
 echo '<td><input type="text" name="drop_area1" value="' . $drop_area1 . '" size="10" maxlength="10"></td>' . PHP_EOL;
 echo '<td><input type="text" name="drop_area2" value="' . $drop_area2 . '" size="10" maxlength="10"></td>' . PHP_EOL;

@@ -20,15 +20,14 @@ require_once __DIR__ . '/../get_post_check.php';
             </tr>
             <tr>
                 <td>
-                    <select name="drop_item">
-                        <option hidden>選択してください</option>
-                        <option value="0"><?= $drop_item_name[0] ?></option>
-                        <option value="1"><?= $drop_item_name[1] ?></option>
-                        <option value="2"><?= $drop_item_name[2] ?></option>
-                        <option value="3"><?= $drop_item_name[3] ?></option>
-                        <option value="4"><?= $drop_item_name[4] ?></option>
-                        <option value="5"><?= $drop_item_name[5] ?></option>
-                    </select>
+<?php
+echo '<select name="drop_item">';
+echo '<option hidden>選択してください</option>';
+foreach ($drop_item_name as $key => $value) {
+    echo '<option value="' . $key . '">' . $value . '</option>';
+}
+echo '</select>';
+?>
                 </td>
                 <td>
                     <input type="text" name="drop_enemy" size="20" maxlength="10" required>

@@ -6,18 +6,21 @@ if ($_POST['id'] == NULL) {
     echo "正しい更新ボタンを押してください。";
     exit;
 }
-//print_r($_POST);
-$drop_item = (int)$_POST['drop_item'];
+//var_dump($_POST);
+if ($_POST['drop_item'] != "NULL") {
+    $drop_item = (int)$_POST['drop_item'];
+} else {
+    echo 'アイテム名が正しくありません。';
+    exit;
+}
 $drop_enemy = htmlspecialchars($_POST['drop_enemy'], ENT_QUOTES);
 $drop_area1 = htmlspecialchars($_POST['drop_area1'], ENT_QUOTES);
 $drop_area2 = htmlspecialchars($_POST['drop_area2'], ENT_QUOTES);
 if ($_POST['x'] || $_POST['x'] == "0") {
     $x = (int)htmlspecialchars($_POST['x'], ENT_QUOTES);
-//    var_dump($_POST['x']);
 } else {
     $x = NULL;
 }
-//var_dump($x);
 if ($_POST['y'] || $_POST['y'] == "0") {
     $y = (int)htmlspecialchars($_POST['y'], ENT_QUOTES);
 } else {
