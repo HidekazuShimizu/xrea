@@ -7,6 +7,7 @@ require_once __DIR__ . '/../get_post_check.php';
 <head>
     <meta charset="UTF-8">
     <title>倉庫クエアップデート</title>
+	<link rel="icon" href="../img/favicon.ico">
 	<link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
@@ -63,9 +64,9 @@ try {
        $sql = 'SELECT * FROM souko_kue WHERE step = ?';
        $stmt = $dbh->prepare($sql);
        $stmt->bindValue(1, $step, PDO::PARAM_INT);
-    } elseif (isset($search)) {
+    } else {
         foreach ($drop_item_name as $key => $value) {
-            if (preg_match('/'.$search.'/', $value[$key])) {
+            if (preg_match('/'.$search.'/', $value)) {
                 $cnt = $key;
                 break;
             }
@@ -92,10 +93,10 @@ try {
     echo '<tr>' . PHP_EOL;
     echo '<th>' . PHP_EOL;
     echo '<form method="get" action="souko_kue.php?step=' . htmlspecialchars($step, ENT_QUOTES) . '&search=' . htmlspecialchars($search, ENT_QUOTES) . '">' . PHP_EOL;
-    echo '<input type="text" class="search_id" name="search" value="' . htmlspecialchars($search, ENT_QUOTES) . '" size="22" maxlength="10">' . PHP_EOL;
+    echo '<input type="text" class="reset_place" name="search" value="' . htmlspecialchars($search, ENT_QUOTES) . '" size="22" maxlength="10">' . PHP_EOL;
     echo '<input type="hidden" name="step" value="' . htmlspecialchars($step, ENT_QUOTES) .'">' . PHP_EOL;
     echo '<input type="submit" value="検索">' . PHP_EOL;
-    echo '<button class="reset"">リセット</button>' . PHP_EOL;
+    echo '<button class="reset">リセット</button>' . PHP_EOL;
     echo '</form>' . PHP_EOL;
     echo '</th>' . PHP_EOL;
     echo '</tr>' . PHP_EOL;

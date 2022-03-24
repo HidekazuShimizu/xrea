@@ -7,6 +7,7 @@ require_once __DIR__ . '/get_post_check.php';
 <head>
     <meta charset="UTF-8">
     <title>倉庫クエアップデート</title>
+	<link rel="icon" href="img/favicon.ico">
 	<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -26,9 +27,9 @@ try {
        $sql = 'SELECT * FROM souko_kue WHERE step = ?';
        $stmt = $dbh->prepare($sql);
        $stmt->bindValue(1, $step, PDO::PARAM_INT);
-    } elseif (isset($search)) {
+    } else {
         foreach ($drop_item_name as $key => $value) {
-            if (preg_match('/'.$search.'/', $value[$key])) {
+            if (preg_match('/'.$search.'/', $value)) {
                 $cnt = $key;
                 break;
             }

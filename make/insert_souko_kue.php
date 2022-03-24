@@ -33,6 +33,7 @@ if ($_POST['height'] || $_POST['height'] == "0") {
 <head>
     <meta charset="UTF-8">
     <title>倉庫クエインサート</title>
+	<link rel="icon" href="../img/favicon.ico">
 	<link rel="stylesheet" href="../css/style.css">
 </head>
 <body>

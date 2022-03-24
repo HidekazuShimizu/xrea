@@ -1,3 +1,3 @@
 $('.reset').on('click', function() {
-    $('.search_id').val('');
+    $('.reset_place').val('');
 });
