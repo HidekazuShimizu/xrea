@@ -2,7 +2,7 @@
 const ISHI = 12;
 
 //print_r($_POST) . '<br>';
-if (count($_POST) >= ISHI) {
+if (count($_POST) === ISHI) {
     foreach ($_POST as $key => $value){
         if ($key > ISHI) { break; }
         $num[$key] = $value;
@@ -13,8 +13,8 @@ if (count($_POST) >= ISHI) {
     }
 }
 //var_dump($num);
-foreach ($_POST as $key => $value) {
-    $calcNum[$key] = 0;
+for ($i = 0; $i < ISHI; $i++) {
+    $calcNum[$i] = 0;
 }
 //var_dump($calcNum);
 ?>
@@ -135,7 +135,7 @@ while (1) {
 //echo $lv[7] . ':' . $lv[8] . ':' . $lv[9] . ':' . $lv[10] . ':' . $lv[11] . ':' . $lv[12] . '<br>' . PHP_EOL;
 
 foreach ($calcNum as $key => $value) {
-    echo '<td><input type="number" class="reset_place" name="calcNum[' . $key .']" value="' . $value . '" min="0" max="99" disabled></td>' . PHP_EOL;
+    echo '<td><input type="number" class="reset_place" name="calcNum[' . $key .']" value="' . $value . '" min="0" max="999" disabled></td>' . PHP_EOL;
 }
 echo '</tr>' . PHP_EOL;
 echo '</table>' . PHP_EOL;
