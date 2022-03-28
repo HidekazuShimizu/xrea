@@ -66,10 +66,16 @@ try {
        $stmt->bindValue(1, $step, PDO::PARAM_INT);
     } else {
         foreach ($drop_item_name as $key => $value) {
+            if (str_contains($value, $search)) {
+                $cnt = $key;
+                break;
+            }
+/*
             if (preg_match('/'.$search.'/', $value)) {
                 $cnt = $key;
                 break;
             }
+*/
         }
         $sql = 'SELECT * FROM souko_kue WHERE step = ? and (drop_item = ? or drop_enemy like ? or drop_area1 like ? or drop_area2 like ?)';
         $search_like = '%' . $search . '%';

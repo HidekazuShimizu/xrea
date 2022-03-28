@@ -29,10 +29,16 @@ try {
        $stmt->bindValue(1, $step, PDO::PARAM_INT);
     } else {
         foreach ($drop_item_name as $key => $value) {
+            if (str_contains($value , $search)) {
+                $cnt = $key;
+                break;
+            }
+/*
             if (preg_match('/'.$search.'/', $value)) {
                 $cnt = $key;
                 break;
             }
+*/
         }
         $sql = 'SELECT * FROM souko_kue WHERE step = ? and (drop_item = ? or drop_enemy like ? or drop_area1 like ? or drop_area2 like ?)';
         $search_like = '%' . $search . '%';
@@ -56,7 +62,7 @@ try {
     echo '<tr>' . PHP_EOL;
     echo '<th>' . PHP_EOL;
     echo '<form method="get" action="souko_quest.php?step=' . htmlspecialchars($step, ENT_QUOTES) . '&search=' . htmlspecialchars($search, ENT_QUOTES) . '">' . PHP_EOL;
-    echo '<input type="text" class="search_id" name="search" value="' . htmlspecialchars($search, ENT_QUOTES) . '" size="22" maxlength="10">' . PHP_EOL;
+    echo '<input type="text" class="reset_place" name="search" value="' . htmlspecialchars($search, ENT_QUOTES) . '" size="22" maxlength="10">' . PHP_EOL;
     echo '<input type="hidden" name="step" value="' . htmlspecialchars($step, ENT_QUOTES) .'">' . PHP_EOL;
     echo '<input type="submit" value="検索">' . PHP_EOL;
     echo '<button class="reset"">リセット</button>' . PHP_EOL;
