@@ -29,7 +29,7 @@ try {
        $stmt->bindValue(1, $step, PDO::PARAM_INT);
     } else {
         foreach ($drop_item_name as $key => $value) {
-            if (str_contains($value , $search)) {
+            if (str_contains($value, $search)) {
                 $cnt = $key;
                 break;
             }

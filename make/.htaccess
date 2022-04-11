@@ -1,0 +1,14 @@
+﻿#.htaccessと.htpasswdを隠す
+<Files ~ "^\.ht">
+deny from all
+</Files>
+
+#####basicauth#####
+#AuthUserFile "/home/moyasea/moyasea.stars.ne.jp/top/make/.htpasswd"
+#AuthUserFile "/home/moyasea/moyasea.stars.ne.jp/htpasswd/make/.htpasswd"
+AuthUserFile "/MAMP/htdocs/xrea/make/.htpasswd"
+AuthName "Member Site"
+AuthType BASIC
+require valid-user
+#####end:basicauth#####
+
