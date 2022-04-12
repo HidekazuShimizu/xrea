@@ -63,7 +63,7 @@ for ($day = 1; $day <= $day_count; $day++, $youbi++) {
         $week .= '<td class="today">' . $day;
     } elseif (isset($holiday[$date2])) {
         // 祝日の場合は、<font color="red"> ～ </font>で囲む
-        $week .= '<td><font color="red">' . $day . "</font>";
+        $week .= '<td><font color="red"><p title="' . $holiday[$date2] . '">' . $day . "</p></font>";
     } else {
         $week .= '<td>' . $day;
     }
