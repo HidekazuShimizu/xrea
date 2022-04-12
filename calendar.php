@@ -1,18 +1,29 @@
 <?php
+// 祝日の読み込み
+require_once __DIR__ . '/holiday_require.php';
+
 // タイムゾーンの設定
 date_default_timezone_set('Asia/Tokyo');
 
 if (isset($_GET['ym'])) {
     $ym = $_GET['ym'];
+    $data = explode('-', $_GET['ym']);
+    $m = $data[1];
 } else {
     // 今月の年月を表示
     $ym = date('Y-m');
+
+    // 今月の月を表示
+    $data = explode('-', $ym);
+    $m = $data[1];
 }
 
 // タイムスタンプを作成して、フォーマットをチェックする
 $timestamp = strtotime($ym . '-01');
 if ($timestamp === false) {
     $ym = date('Y-m');
+    $data = explode('-', $ym);
+    $m = $data[1];
     $timestamp = strtotime($ym . '-01');
 }
 
@@ -44,10 +55,15 @@ $week .= str_repeat('<td></td>', $youbi);
 for ($day = 1; $day <= $day_count; $day++, $youbi++) {
     // 2022-04-1
     $date = $ym . '-' . $day;
+    // 04-1
+    $date2 = $m . '-' . $day;
 
     if ($today == $date) {
         // 今日の日付の場合は、class="today"をつける
         $week .= '<td class="today">' . $day;
+    } elseif (isset($holiday[$date2])) {
+        // 祝日の場合は、<font color="red"> ～ </font>で囲む
+        $week .= '<td><font color="red">' . $day . "</font>";
     } else {
         $week .= '<td>' . $day;
     }
@@ -67,7 +83,6 @@ for ($day = 1; $day <= $day_count; $day++, $youbi++) {
         $week = '';
     }
 }
-
 ?>
 <!DOCTYPE html>
 <html lang="ja">
@@ -122,7 +137,7 @@ for ($day = 1; $day <= $day_count; $day++, $youbi++) {
             </tr>
             <?php
                 foreach ($weeks as $week) {
-                    echo $week;
+                    echo $week . PHP_EOL;
                 }
             ?>
         </table>
