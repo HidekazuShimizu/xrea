@@ -7,7 +7,8 @@ date_default_timezone_set('Asia/Tokyo');
 
 if (isset($_GET['ym'])) {
     $ym = $_GET['ym'];
-    $data = explode('-', $_GET['ym']);
+
+    $data = explode('-', $ym);
     $m = $data[1];
 } else {
     // 今月の年月を表示
@@ -22,8 +23,10 @@ if (isset($_GET['ym'])) {
 $timestamp = strtotime($ym . '-01');
 if ($timestamp === false) {
     $ym = date('Y-m');
+
     $data = explode('-', $ym);
     $m = $data[1];
+
     $timestamp = strtotime($ym . '-01');
 }
 
