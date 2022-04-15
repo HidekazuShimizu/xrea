@@ -7,28 +7,21 @@ date_default_timezone_set('Asia/Tokyo');
 
 if (isset($_GET['ym'])) {
     $ym = $_GET['ym'];
-
-    $data = explode('-', $ym);
-    $m = $data[1];
 } else {
     // 今月の年月を表示
     $ym = date('Y-m');
-
-    // 今月の月を表示
-    $data = explode('-', $ym);
-    $m = $data[1];
 }
 
 // タイムスタンプを作成して、フォーマットをチェックする
 $timestamp = strtotime($ym . '-01');
 if ($timestamp === false) {
     $ym = date('Y-m');
-
-    $data = explode('-', $ym);
-    $m = $data[1];
-
     $timestamp = strtotime($ym . '-01');
 }
+
+// 今月の月を表示
+$data = explode('-', $ym);
+$m = $data[1];
 
 // 今日の日付フォーマット　例）2022-04-1
 $today = date('Y-m-j');
