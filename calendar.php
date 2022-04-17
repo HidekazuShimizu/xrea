@@ -56,8 +56,24 @@ for ($day = 1; $day <= $day_count; $day++, $youbi++) {
     $date2 = $m . '-' . $day;
 
     if ($today == $date) {
-        // 今日の日付の場合は、class="today"をつける
-        $week .= '<td class="today">' . $day;
+        // 祝日が日曜の場合
+        if ($youbi % 7 == 0 && isset($holiday[$date2])) {
+            $week .= '<td class="today"><p title="' . $holiday[$date2] . '">' . $day . "</p>";
+            $holiday_count = 1;
+        } elseif (isset($holiday[$date2])) {
+            // 祝日の場合は、<font color="red"> ～ </font>で囲む
+            $week .= '<td class="today"><font color="red"><p title="' . $holiday[$date2] . '">' . $day . "</p></font>";
+        } elseif ($youbi % 7 == 1 && $holiday_count == 1) {
+            // 祝日が日曜の場合、振替休日を設ける
+            // 振替休日は、<font color="red"> ～ </font>で囲む
+            $week .= '<td class="today"><font color="red"><p title="振替休日">' . $day . "</p></font>";
+            $holiday_count = 0;
+        } else {
+            $week .= '<td class="today">' . $day;
+        }
+
+        if ($youbi % 7 == 1 && $holiday_count == 1) {
+        }
     } elseif (isset($holiday[$date2])) {
         // 祝日が日曜の場合
         if ($youbi % 7 == 0) {
