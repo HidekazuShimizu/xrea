@@ -74,11 +74,12 @@ try {
     echo '<input type="text" class="reset_place" name="search" value="' . htmlspecialchars($search, ENT_QUOTES) . '" size="22" maxlength="10">' . PHP_EOL;
     echo '<input type="hidden" name="step" value="' . htmlspecialchars($step, ENT_QUOTES) .'">' . PHP_EOL;
     echo '<input type="submit" value="検索">' . PHP_EOL;
-    echo '<button class="reset"">リセット</button>' . PHP_EOL;
+    echo '<button class="reset">リセット</button>' . PHP_EOL;
     echo '</form>' . PHP_EOL;
     echo '</th>' . PHP_EOL;
     echo '</tr>' . PHP_EOL;
     echo '</table>' . PHP_EOL;
+    
     echo '<table border="1">' . PHP_EOL;
     echo '<tr>' . PHP_EOL;
     echo '<th>ドロップアイテム</th><th>ドロップする敵</th><th>エリア１</th><th>エリア２</th><th>座標(付近)</th>' . PHP_EOL;
