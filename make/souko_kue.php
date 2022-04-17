@@ -1,4 +1,5 @@
 <?php
+// DB接続用ファイルとGETとPOSTの値をチェックするファイルを読み込み
 require_once __DIR__ . '/../db_config.php';
 require_once __DIR__ . '/../get_post_check.php';
 ?>

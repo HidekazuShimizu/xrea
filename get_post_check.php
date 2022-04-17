@@ -6,6 +6,7 @@ if (empty($_GET['step'])) {
 }
 $step = (int)$_GET['step'];
 
+// $stepの値により、$drop_item_nameに入れるデータを切り替える
 switch ($step) {
 case 1:
     $drop_item_name = ['冥獣の肉片', '呪術の皮', '元素の粉末', '柔軟な毛皮', '触角', 'サイの角'];
@@ -18,13 +19,12 @@ default:
     exit;
 }
 
+// 検索ワードがあるかどうかを調べる
 if (isset($_GET['search'])) {
     $search = $_GET['search'];
 } else {
     $search = NULL;
 }
-
-//var_dump($search);
 
 // POSTの値をチェックする
 if (isset($_POST['id'])) {
@@ -32,6 +32,3 @@ if (isset($_POST['id'])) {
 } else {
     $id = NULL;
 }
-
-//var_dump($id);
-?>
