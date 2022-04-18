@@ -71,9 +71,6 @@ for ($day = 1; $day <= $day_count; $day++, $youbi++) {
         } else {
             $week .= '<td class="today">' . $day;
         }
-
-        if ($youbi % 7 == 1 && $holiday_count == 1) {
-        }
     } elseif (isset($holiday[$date2])) {
         // 祝日が日曜の場合
         if ($youbi % 7 == 0) {
