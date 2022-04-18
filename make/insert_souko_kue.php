@@ -7,8 +7,8 @@ if ($_POST['drop_item'] == '選択してください') {
     echo "ドロップアイテム名を選択してください。";
     exit;
 }
-//print_r($_POST);
 
+// 各種パラメータの設定
 $drop_item = (int)$_POST['drop_item'];
 $drop_enemy = htmlspecialchars($_POST['drop_enemy'], ENT_QUOTES);
 $drop_area1 = htmlspecialchars($_POST['drop_area1'], ENT_QUOTES);
@@ -55,6 +55,7 @@ if ($_POST['height'] || $_POST['height'] == "0") {
         </table>
 <?php
 try {
+    // DB更新
     $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $sql = "INSERT INTO souko_kue (step, drop_item, drop_enemy, drop_area1, drop_area2, x, y, height) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
     $stmt = $dbh->prepare($sql);

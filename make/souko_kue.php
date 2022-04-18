@@ -23,6 +23,7 @@ require_once __DIR__ . '/../get_post_check.php';
             <tr>
                 <td>
 <?php
+// ドロップアイテムのプルダウンメニューを表示する
 echo '<select name="drop_item">';
 echo '<option hidden>選択してください</option>';
 foreach ($drop_item_name as $key => $value) {
@@ -60,17 +61,21 @@ echo '</select>';
     </form>
 <?php
 try {
+    // DB接続開始
     $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     if (empty($search)) {
-       $sql = 'SELECT * FROM souko_kue WHERE step = ?';
-       $stmt = $dbh->prepare($sql);
-       $stmt->bindValue(1, $step, PDO::PARAM_INT);
+        // 検索ワードが設定されていない時のSQL文
+        $sql = 'SELECT * FROM souko_kue WHERE step = ?';
+        $stmt = $dbh->prepare($sql);
+        $stmt->bindValue(1, $step, PDO::PARAM_INT);
     } else {
+        // $drop_item_nameの部分検索を行って、該当するものがあるかをチェック
         foreach ($drop_item_name as $key => $value) {
             if (str_contains($value, $search)) {
                 $cnt = $key;
                 break;
             }
+// PHP7以前の場合はこちらの方法で
 /*
             if (preg_match('/'.$search.'/', $value)) {
                 $cnt = $key;
@@ -78,8 +83,14 @@ try {
             }
 */
         }
+
+        // 検索ワードが設定されている時のSQL文
         $sql = 'SELECT * FROM souko_kue WHERE step = ? and (drop_item = ? or drop_enemy like ? or drop_area1 like ? or drop_area2 like ?)';
+
+        // あいまい検索用変数
         $search_like = '%' . $search . '%';
+
+        // 各種DB接続に関する設定
         $stmt = $dbh->prepare($sql);
         $stmt->bindValue(1, $step, PDO::PARAM_INT);
         if (isset($cnt)) {
@@ -91,11 +102,9 @@ try {
         $stmt->bindValue(4, $search_like, PDO::PARAM_STR);
         $stmt->bindValue(5, $search_like, PDO::PARAM_STR);
     }
-    //echo $sql . '<br>';
     $stmt->execute();
     $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    //var_dump($result);
-    //var_dump($search);
+
     echo '<table>' . PHP_EOL;
     echo '<tr>' . PHP_EOL;
     echo '<th>' . PHP_EOL;
@@ -108,12 +117,14 @@ try {
     echo '</th>' . PHP_EOL;
     echo '</tr>' . PHP_EOL;
     echo '</table>' . PHP_EOL;
+
     echo '<table border="1">' . PHP_EOL;
     echo '<tr>' . PHP_EOL;
     echo '<th>ドロップアイテム</th><th>ドロップする敵</th><th>エリア１</th><th>エリア２</th><th>座標(付近)</th><th>更新</th>' . PHP_EOL;
     echo '</tr>' . PHP_EOL;
+
+    // 倉庫クエ（敵一覧データ）の表示
     foreach ($result as $row) {
-        //var_dump($row);
         echo '<form method="post" action="update_souko_kue.php?step=' . htmlspecialchars($step, ENT_QUOTES) . '">' . PHP_EOL;
         echo '<tr>' . PHP_EOL;
         echo '<td>' . $drop_item_name[(int)$row['drop_item']] . '</td>' . PHP_EOL;
@@ -127,6 +138,8 @@ try {
         echo '</form>' . PHP_EOL;
     }
     echo '</table>' . PHP_EOL;
+
+    // DB領域の開放
     $dbh = null;
 } catch (PDOException $e) {
     echo 'エラー発生：表示に失敗しました。';

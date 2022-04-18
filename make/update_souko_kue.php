@@ -9,13 +9,15 @@ if ($_POST['id'] == NULL) {
 }
 
 try {
+    // DB接続開始
     $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $sql = "SELECT * FROM souko_kue WHERE id = ?";
     $stmt = $dbh->prepare($sql);
     $stmt->bindValue(1, $id, PDO::PARAM_INT);
     $stmt->execute();
     $result = $stmt->fetch(PDO::FETCH_ASSOC);
-    //var_dump($result);
+
+    // 各種パラメータの設定（idから取得）
     $drop_item = (int)$result['drop_item'];
     $drop_enemy = htmlspecialchars($result['drop_enemy'], ENT_QUOTES);
     $drop_area1 = htmlspecialchars($result['drop_area1'], ENT_QUOTES);
@@ -35,7 +37,8 @@ try {
     } else {
         $height = NULL;
     }
-    //var_dump($x);
+
+    // DB領域の開放
     $dbh = null;
 } catch (PDOException $e) {
     echo 'エラー発生：更新処理に失敗しました。';
@@ -55,6 +58,7 @@ try {
     <h2>倉庫クエ（敵一覧）データ更新</h2>
     <form method="post" action="update_souko_kue2.php?step=<?= htmlspecialchars($step, ENT_QUOTES) ?>">
 <?php
+// データ表示
 echo '<table border="1">' . PHP_EOL;
 echo '<tr>' . PHP_EOL;
 echo '<th>ドロップアイテム</th><th>ドロップする敵</th><th>エリア１</th><th>エリア２</th><th>x座標</th><th>y座標</th><th>高度</th><th>更新</th>' . PHP_EOL;
