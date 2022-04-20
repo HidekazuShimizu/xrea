@@ -71,18 +71,16 @@ for ($day = 1; $day <= $day_count; $day++, $youbi++) {
         } else {
             $week .= '<td class="today">' . $day;
         }
-    } elseif (isset($holiday[$date2])) {
+    } else {
         // 祝日が日曜の場合
-        if ($youbi % 7 == 0) {
+        if ($youbi % 7 == 0 && isset($holiday[$date2])) {
             $week .= '<td><p title="' . $holiday[$date2] . '">' . $day . "</p>";
             $holiday_count = 1;
-        } else {
+        } elseif (isset($holiday[$date2])) {
             // 祝日の場合は、<font color="red"> ～ </font>で囲む
             $week .= '<td><font color="red"><p title="' . $holiday[$date2] . '">' . $day . "</p></font>";
-        }
-    } else {
-        // 祝日が日曜の場合、振替休日を設ける
-        if ($youbi % 7 == 1 && $holiday_count == 1) {
+        } elseif ($youbi % 7 == 1 && $holiday_count == 1) {
+            // 祝日が日曜の場合、振替休日を設ける
             // 振替休日は、<font color="red"> ～ </font>で囲む
             $week .= '<td><font color="red"><p title="振替休日">' . $day . "</p></font>";
             $holiday_count = 0;
