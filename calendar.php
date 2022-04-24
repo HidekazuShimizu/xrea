@@ -43,7 +43,7 @@ $youbi = date('w', $timestamp);
 // カレンダー作成の準備
 $weeks = [];
 $week = '';
-$holiday_count = 0;     // 祝日用カウンター　例）0:日曜以外 1:日曜
+$holiday_count = false;     // 祝日用カウンター　例）0:日曜以外 1:日曜
 
 // 第１週目：空のセルを追加
 // 例）１日が火曜日だった場合、日・月曜日の２つ分の空セルを追加する
@@ -59,15 +59,15 @@ for ($day = 1; $day <= $day_count; $day++, $youbi++) {
         // 祝日が日曜の場合
         if ($youbi % 7 == 0 && isset($holiday[$date2])) {
             $week .= '<td class="today"><p title="' . $holiday[$date2] . '">' . $day . "</p>";
-            $holiday_count = 1;
+            $holiday_count = true;
         } elseif (isset($holiday[$date2])) {
             // 祝日の場合は、<font color="red"> ～ </font>で囲む
             $week .= '<td class="today"><font color="red"><p title="' . $holiday[$date2] . '">' . $day . "</p></font>";
-        } elseif ($youbi % 7 == 1 && $holiday_count == 1) {
+        } elseif ($youbi % 7 == 1 && $holiday_count == true) {
             // 祝日が日曜の場合、振替休日を設ける
             // 振替休日は、<font color="red"> ～ </font>で囲む
             $week .= '<td class="today"><font color="red"><p title="振替休日">' . $day . "</p></font>";
-            $holiday_count = 0;
+            $holiday_count = false;
         } else {
             $week .= '<td class="today">' . $day;
         }
@@ -75,15 +75,15 @@ for ($day = 1; $day <= $day_count; $day++, $youbi++) {
         // 祝日が日曜の場合
         if ($youbi % 7 == 0 && isset($holiday[$date2])) {
             $week .= '<td><p title="' . $holiday[$date2] . '">' . $day . "</p>";
-            $holiday_count = 1;
+            $holiday_count = true;
         } elseif (isset($holiday[$date2])) {
             // 祝日の場合は、<font color="red"> ～ </font>で囲む
             $week .= '<td><font color="red"><p title="' . $holiday[$date2] . '">' . $day . "</p></font>";
-        } elseif ($youbi % 7 == 1 && $holiday_count == 1) {
+        } elseif ($youbi % 7 == 1 && $holiday_count == true) {
             // 祝日が日曜の場合、振替休日を設ける
             // 振替休日は、<font color="red"> ～ </font>で囲む
             $week .= '<td><font color="red"><p title="振替休日">' . $day . "</p></font>";
-            $holiday_count = 0;
+            $holiday_count = false;
         } else {
             $week .= '<td>' . $day;
         }
